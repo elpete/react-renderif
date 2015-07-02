@@ -1,13 +1,13 @@
-jest.dontMock('../RenderIf');
+jest.dontMock('../react-renderif');
 
-describe('RenderIf', function() {
+describe('react-renderif', function() {
 
     var React, TestUtils, RenderIf;
 
     beforeEach(function() {
         React = require('react/addons');
         TestUtils = React.addons.TestUtils;
-        RenderIf = require('../RenderIf');
+        RenderIf = require('../react-renderif');
     });
 
     it('renders conditionally on if a variable has a truthy value (what we call "exists")', function() {
@@ -33,12 +33,12 @@ describe('RenderIf', function() {
         expect(notRenderedContent).toEqual([]);
     });
 
-    it('renders conditionally on if a variable is true (alias for exists, really)', function() {
-        var trueVariable = true;
-        var falseVariable = false;
+    it('renders conditionally on if a variable has a falsey value (what we call "notExists")', function() {
+        var notExistsVariable = '';
+        var existsVariable = 123;
 
         var shouldRender = TestUtils.renderIntoDocument(
-            <RenderIf true={trueVariable}>
+            <RenderIf notExists={notExistsVariable}>
                 <h1>Rendered</h1>
             </RenderIf>
         );
@@ -47,7 +47,27 @@ describe('RenderIf', function() {
         expect(renderedContent[0].getDOMNode().textContent).toEqual('Rendered');
 
         var shouldNotRender = TestUtils.renderIntoDocument(
-            <RenderIf true={falseVariable}>
+            <RenderIf notExists={existsVariable}>
+                <h1>Rendered</h1>
+            </RenderIf>
+        );
+
+        var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
+        expect(notRenderedContent).toEqual([]);
+    });
+
+    it('renders conditionally on if a variable is true (only true, not truthy)', function() {
+        var shouldRender = TestUtils.renderIntoDocument(
+            <RenderIf isTrue={true}>
+                <h1>Rendered</h1>
+            </RenderIf>
+        );
+
+        var renderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldRender, 'h1');
+        expect(renderedContent[0].getDOMNode().textContent).toEqual('Rendered');
+
+        var shouldNotRender = TestUtils.renderIntoDocument(
+            <RenderIf isTrue={'hello'}>
                 <h1>Rendered</h1>
             </RenderIf>
         );
@@ -57,11 +77,8 @@ describe('RenderIf', function() {
     });
 
     it('renders conditionally on if a variable is false', function() {
-        var falseVariable = false;
-        var trueVariable = true;
-
         var shouldRender = TestUtils.renderIntoDocument(
-            <RenderIf false={falseVariable}>
+            <RenderIf isFalse={false}>
                 <h1>Rendered</h1>
             </RenderIf>
         );
@@ -70,7 +87,7 @@ describe('RenderIf', function() {
         expect(renderedContent[0].getDOMNode().textContent).toEqual('Rendered');
 
         var shouldNotRender = TestUtils.renderIntoDocument(
-            <RenderIf false={trueVariable}>
+            <RenderIf isFalse={0}>
                 <h1>Rendered</h1>
             </RenderIf>
         );
