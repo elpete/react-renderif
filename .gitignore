@@ -1,2 +1,3 @@
 node_modules
 RenderIf.js
+!src/RenderIf.js
