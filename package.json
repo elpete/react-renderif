@@ -1,5 +1,5 @@
 {
-  "name": "RenderIf",
+  "name": "react-renderif",
   "version": "1.0.0",
   "description": "Conditional rendering of React components",
   "keywords": [
@@ -8,10 +8,10 @@
     "control-flow",
     "conditional-rendering"
   ],
-  "main": "RenderIf.js",
+  "main": "react-renderif.js",
   "author": "Eric Peterson <eric@elpete.com>",
   "scripts": {
-    "build": "./node_modules/react-tools/bin/jsx src/RenderIf.js > RenderIf.js",
+    "build": "./node_modules/react-tools/bin/jsx src/react-renderif.js > react-renderif.js",
     "prepublish": "npm run build && npm run test",
     "test": "jest"
   },
