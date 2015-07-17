@@ -43,8 +43,8 @@ var RenderIf = React.createClass({
             this.props.callback instanceof Function &&
             !this.props.callback(this.props.property)) return false;
 
-        if (this.props.exists !== null && !this.props.exists) return false;
-        if (this.props.notExists !== null && this.props.notExists) return false;
+        if (this.props.exists !== null && this.props.exists != true) return false;
+        if (this.props.notExists !== null && this.props.notExists != true) return false;
         if (this.props.isTrue !== null && this.props.isTrue !== true) return false;
         if (this.props.isFalse !== null && this.props.isFalse !== false) return false;
         if (this.props.expression !== null && !this.props.expression) return false;

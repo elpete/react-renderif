@@ -33,6 +33,19 @@ describe('react-renderif', function() {
         expect(notRenderedContent).toEqual([]);
     });
 
+    iit('should not render an exists check when given 0', function() {
+        var notExistsVariable = '0';
+
+        var shouldNotRender = TestUtils.renderIntoDocument(
+            <RenderIf exists={notExistsVariable}>
+                <h1>Rendered</h1>
+            </RenderIf>
+        );
+
+        var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
+        expect(notRenderedContent).toEqual([]);
+    });
+
     it('renders conditionally on if a variable has a falsey value (what we call "notExists")', function() {
         var notExistsVariable = '';
         var existsVariable = 123;
