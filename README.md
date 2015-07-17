@@ -100,7 +100,7 @@ var RenderIfFoo = RenderIf.createCustomMatcher(function(property) {
 // ...
 ```
 
-Testing / Building / Contributing
+### Testing / Building / Contributing
 ```js
 // Testing
 npm test
