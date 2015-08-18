@@ -1,6 +1,6 @@
 {
   "name": "react-renderif",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Conditional rendering of React components",
   "keywords": [
     "react-component",
@@ -13,7 +13,7 @@
   "scripts": {
     "build": "./node_modules/react-tools/bin/jsx src/react-renderif.js > react-renderif.js",
     "prepublish": "npm run build && npm run test",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",

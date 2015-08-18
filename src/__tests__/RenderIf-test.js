@@ -1,52 +1,61 @@
-jest.dontMock('../react-renderif');
+jest.autoMockOff();
 
 describe('react-renderif', function() {
 
-    var React, TestUtils, RenderIf;
+    describe('renders conditionally on if a variable has a truthy value (what we call "exists")', function() {
+        it('tests correctly', function() {
+            var React = require('react/addons');
+            var TestUtils = React.addons.TestUtils;
+            var RenderIf = require('../react-renderif');
 
-    beforeEach(function() {
-        React = require('react/addons');
-        TestUtils = React.addons.TestUtils;
-        RenderIf = require('../react-renderif');
+            var existsVariable = 123;
+            var notExistsVariable = '';
+
+            var shouldRender = TestUtils.renderIntoDocument(
+                <RenderIf exists={existsVariable}>
+                    <h1>Rendered</h1>
+                </RenderIf>
+            );
+
+            var renderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldRender, 'h1');
+            expect(renderedContent[0].getDOMNode().textContent).toEqual('Rendered');
+
+            var shouldNotRender = TestUtils.renderIntoDocument(
+                <RenderIf exists={notExistsVariable}>
+                    <h1>Rendered</h1>
+                </RenderIf>
+            );
+
+            var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
+            expect(notRenderedContent).toEqual([]);
+        });
     });
 
-    it('renders conditionally on if a variable has a truthy value (what we call "exists")', function() {
-        var existsVariable = 123;
-        var notExistsVariable = '';
+    describe('should not render an exists check when given 0', function() {
+        it('tests correctly', function() {
+            var React = require('react/addons');
+            var TestUtils = React.addons.TestUtils;
+            var RenderIf = require('../react-renderif');
 
-        var shouldRender = TestUtils.renderIntoDocument(
-            <RenderIf exists={existsVariable}>
-                <h1>Rendered</h1>
-            </RenderIf>
-        );
+            var notExistsVariable = 0;
 
-        var renderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldRender, 'h1');
-        expect(renderedContent[0].getDOMNode().textContent).toEqual('Rendered');
+            var shouldNotRender = TestUtils.renderIntoDocument(
+                <RenderIf exists={notExistsVariable}>
+                    <h1>Rendered</h1>
+                </RenderIf>
+            );
 
-        var shouldNotRender = TestUtils.renderIntoDocument(
-            <RenderIf exists={notExistsVariable}>
-                <h1>Rendered</h1>
-            </RenderIf>
-        );
-
-        var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
-        expect(notRenderedContent).toEqual([]);
+            var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
+            expect(notRenderedContent).toEqual([]);
+        });
     });
 
-    iit('should not render an exists check when given 0', function() {
-        var notExistsVariable = '0';
+    describe('renders conditionally on if a variable has a falsey value (what we call "notExists")', function() {
+        it('tests correctly', function() {
+        var React = require('react/addons');
+        var TestUtils = React.addons.TestUtils;
+        var RenderIf = require('../react-renderif');
 
-        var shouldNotRender = TestUtils.renderIntoDocument(
-            <RenderIf exists={notExistsVariable}>
-                <h1>Rendered</h1>
-            </RenderIf>
-        );
-
-        var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
-        expect(notRenderedContent).toEqual([]);
-    });
-
-    it('renders conditionally on if a variable has a falsey value (what we call "notExists")', function() {
         var notExistsVariable = '';
         var existsVariable = 123;
 
@@ -68,8 +77,14 @@ describe('react-renderif', function() {
         var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
         expect(notRenderedContent).toEqual([]);
     });
+    });
 
-    it('renders conditionally on if a variable is true (only true, not truthy)', function() {
+    describe('renders conditionally on if a variable is true (only true, not truthy)', function() {
+        it('tests correctly', function() {
+        var React = require('react/addons');
+        var TestUtils = React.addons.TestUtils;
+        var RenderIf = require('../react-renderif');
+
         var shouldRender = TestUtils.renderIntoDocument(
             <RenderIf isTrue={true}>
                 <h1>Rendered</h1>
@@ -88,8 +103,14 @@ describe('react-renderif', function() {
         var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
         expect(notRenderedContent).toEqual([]);
     });
+    });
 
-    it('renders conditionally on if a variable is false', function() {
+    describe('renders conditionally on if a variable is false', function() {
+        it('tests correctly', function() {
+        var React = require('react/addons');
+        var TestUtils = React.addons.TestUtils;
+        var RenderIf = require('../react-renderif');
+
         var shouldRender = TestUtils.renderIntoDocument(
             <RenderIf isFalse={false}>
                 <h1>Rendered</h1>
@@ -108,8 +129,14 @@ describe('react-renderif', function() {
         var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
         expect(notRenderedContent).toEqual([]);
     });
+    });
 
-    it('renders conditionally on if a passed in expression is true', function() {
+    describe('renders conditionally on if a passed in expression is true', function() {
+        it('tests correctly', function() {
+        var React = require('react/addons');
+        var TestUtils = React.addons.TestUtils;
+        var RenderIf = require('../react-renderif');
+
         var shouldRender = TestUtils.renderIntoDocument(
             <RenderIf expression={1 === 1}>
                 <h1>Rendered</h1>
@@ -128,8 +155,14 @@ describe('react-renderif', function() {
         var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
         expect(notRenderedContent).toEqual([]);
     });
+    });
 
-    it('renders conditionally on if a passed in callback returns true', function() {
+    describe('renders conditionally on if a passed in callback returns true', function() {
+        it('tests correctly', function() {
+        var React = require('react/addons');
+        var TestUtils = React.addons.TestUtils;
+        var RenderIf = require('../react-renderif');
+
         var shouldRender = TestUtils.renderIntoDocument(
             <RenderIf callback={function() { return 1 === 1; }}>
                 <h1>Rendered</h1>
@@ -148,8 +181,14 @@ describe('react-renderif', function() {
         var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
         expect(notRenderedContent).toEqual([]);
     });
+    });
 
-    it('provides a factory method for creating custom RenderIf wrappers', function() {
+    describe('provides a factory method for creating custom RenderIf wrappers', function() {
+        it('tests correctly', function() {
+        var React = require('react/addons');
+        var TestUtils = React.addons.TestUtils;
+        var RenderIf = require('../react-renderif');
+
         var RenderIfFoo = RenderIf.createCustomMatcher(function(property) {
             return property === 'foo';
         });
@@ -171,6 +210,29 @@ describe('react-renderif', function() {
 
         var notRenderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldNotRender, 'h1');
         expect(notRenderedContent).toEqual([]);
+    });
+    });
+
+    describe('wraps multiple child components to avoid invariant violations', function() {
+        it('tests correctly', function() {
+            var React = require('react/addons');
+            var TestUtils = React.addons.TestUtils;
+            var RenderIf = require('../react-renderif');
+
+            var shouldRender = TestUtils.renderIntoDocument(
+                <RenderIf callback={function() { return 1 === 1; }}>
+                    <h1>Rendered</h1>
+                    <h1>Also Rendered</h1>
+                </RenderIf>
+            );
+
+            var renderedContent = TestUtils.scryRenderedDOMComponentsWithTag(shouldRender, 'h1');
+            expect(renderedContent[0].getDOMNode().textContent).toEqual('Rendered');
+            expect(renderedContent[1].getDOMNode().textContent).toEqual('Also Rendered');
+
+            var renderedWrapper = TestUtils.scryRenderedDOMComponentsWithTag(shouldRender, 'div');
+            expect(renderedWrapper.length).toEqual(1);
+        });
     });
 
 });
