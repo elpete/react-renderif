@@ -1,6 +1,6 @@
 {
   "name": "react-renderif",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Conditional rendering of React components",
   "keywords": [
     "react-component",
